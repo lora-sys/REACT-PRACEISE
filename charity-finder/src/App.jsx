@@ -4,30 +4,60 @@ import Top  from './top/top';
 import {useState} from 'react';
 import Search from './search/search';
 import Result from './result/result';
+import { set } from 'lodash';
 function App() {
   //搜索
   const [search,setSearch]=useState([]);
-  const handleSearch=()=>{
+  const [loading,setLoading]=useState(false);
+  const handleSearch=(criteria)=>{
+    setLoading(true);
     //faka data
+    setTimeout(()=>{
+      
     const fakaData=[
-      {
-        id:"org-001",
-        name:"Charity Organization 1",
-        address:"123 Main St, Anytown, USA",
-        logo:"	https://images.icon-icons.com/4286/PNG/512/care_wellness_medical_icon_266400.png",
-        website:"https://www.charity1.com",
-        countriesServed:['china','japan','korea'],
-      },{
-        id:"org-002",
-        name:"Charity Organization 2",
-        address:"456 Main St, Anytown, USA",
-        logo:"https://images.icon-icons.com/4286/PNG/512/medical_reference_knowledge_book_icon_266399.png",
-        website:"https://www.charity2.com",
-        countriesServed:['global'],
-        
-      }
+              {
+          id: 'org-001',
+          name: '希望工程',
+          address: '中国北京市朝阳区建国路88号',
+          logo: 'https://via.placeholder.com/100?text=Hope',
+          website: 'https://www.project-hope.org',
+          countriesServed: ['中国', '缅甸', '老挝']
+        },
+        {
+          id: 'org-002',
+          name: '国际红十字会',
+          address: '瑞士日内瓦大道19号',
+          logo: 'https://via.placeholder.com/100?text=RedCross',
+          website: 'https://www.redcross.org',
+          countriesServed: ['全球']
+        },
+        {
+          id: 'org-003',
+          name: '绿色和平',
+          address: '荷兰阿姆斯特丹Nieuwezijds Voorburgwal大街120号',
+          logo: 'https://via.placeholder.com/100?text=GreenPeace',
+          website: 'https://www.greenpeace.org',
+          countriesServed: ['中国', '美国', '德国', '巴西']
+        },
+        {
+          id: 'org-004',
+          name: '无国界医生',
+          address: '法国巴黎Rue de Lausanne大街78号',
+          logo: 'https://via.placeholder.com/100?text=MSF',
+          website: 'https://www.msf.org',
+          countriesServed: ['非洲', '中东', '亚洲']
+        }
     ];
-    setSearch(fakaData);
+    const filterData=fakaData.filter(org=>{
+      const nameMatch=criteria.name? org.name.includes(criteria.name) :true;
+      const homeMatch=criteria.homecountry? org.countriesServed.includes(criteria.homecountry) :true;
+      const serveMatch=criteria.servedCountries? org.countriesServed.includes(criteria.servedCountries) :true;
+      return nameMatch && homeMatch && serveMatch;
+    })
+     setSearch(filterData);
+     setLoading(false);
+  },800);
+   
   }
 
 
@@ -36,7 +66,7 @@ return(
   <Top/>
   <div className='container mx-auto px-4 py-8 flex-grow'>
     <Search onSearch={handleSearch}/>
-    <Result results={search}/>
+    <Result results={search} isloading={loading}/>
   </div>
   </div>
   
