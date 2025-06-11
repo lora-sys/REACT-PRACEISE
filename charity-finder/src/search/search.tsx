@@ -89,15 +89,15 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
             name="servedCountries"
             value={searchCriteria.servedCountries}
             onChange={handleChange}
-            multiple
             className='w-full p-2 border rounded'
         >
             <option value="">全部</option>
             {countries.map(country => (
-                <option key={`served-${country}`} value={country}>
-                    {country}
+            <option key={`served-${country}`} value={country}>
+                {country}
                 </option>
-            ))}
+            )
+            )}
         </select>
         </div>
         
