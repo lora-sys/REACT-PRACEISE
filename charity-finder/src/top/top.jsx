@@ -1,5 +1,4 @@
 import React from 'react'
-
 const Top= ()=>{
     return(
         <header className='bg-gradient-to-r from-blue-600 to-purple-500 text-center text-white py-12 '>
