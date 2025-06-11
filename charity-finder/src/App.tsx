@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Top from './top';
+import Top from './top/top';
 import { useState } from 'react';
 import Search from './search/search';
 import Result from './result/result';
 import { Organization, SearchCriteria } from './types';
-
+import Contact from './contact/contact';
 const App: React.FC = () => {
   // 搜索
   const [search, setSearch] = useState<Organization[]>([]);
@@ -73,6 +73,7 @@ const App: React.FC = () => {
         <Search onSearch={handleSearch} />
         <Result results={search} isloading={loading} />
       </div>
+      <Contact />
     </div>
   );
 };
